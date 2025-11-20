@@ -24,7 +24,10 @@ class AuthLoginView(View):
 
         if username in VALID_USERS and VALID_USERS[username] == password:
             request.session["user"] = username 
-            return JsonResponse({"message": f"Welcome {username}"})
+            return JsonResponse({
+                "message": "Login successful",
+                "username": username
+            })
         
         return JsonResponse({"message": "Invalid username or password"}, status=401)
 

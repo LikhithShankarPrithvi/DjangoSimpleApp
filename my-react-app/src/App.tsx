@@ -7,6 +7,8 @@ function App() {
   const [msg, setMsg] = useState("")
   const [loggedIn, setLoggedIn] = useState(false)
 
+  const [loggedUser, setLoggedUser] = useState("")
+
   const handleLogin = async () => {
     const res = await fetch("http://localhost:8000/api/login/", {
       method: "POST",
@@ -19,6 +21,7 @@ function App() {
 
     if (res.status === 200) {
       setLoggedIn(true)
+      setLoggedUser(data.username) 
     }
 
     setMsg(data.message)
@@ -34,6 +37,7 @@ function App() {
     setMsg(data.message)
 
     setLoggedIn(false)
+    setLoggedUser("")  
   }
 
   return (
@@ -51,6 +55,9 @@ function App() {
       {loggedIn && (
         <>
           <h2>You are logged in</h2>
+
+          <p>Welcome, <b>{loggedUser}</b></p>  
+
           <button onClick={handleLogout}>Logout</button>
         </>
       )}
